@@ -13,10 +13,13 @@ A 0.6B-parameter Vietnamese speech recognizer is distilled into a 5M-parameter s
 then fine-tuned on the wake phrase *"năng khiếu ơi"* and scored inside continuous audio against
 DS-CNN, BC-ResNet-8 and openWakeWord baselines.
 
-```mermaid
-flowchart LR
-  T["Parakeet-CTC 0.6B<br/>teacher"] -->|"Phase 1: distil top-64 logits"| S["Streaming Conformer 5M<br/>student"]
-  S -->|"Phase 2: sub-word CTC on the wake phrase"| D["Wake-word detector<br/>scored inside continuous audio"]
+```
+Parakeet-CTC 0.6B ──(Phase 1: distil top-64 logits)──► Streaming Conformer 5M
+  (teacher)                                                 (student)
+                                                               │
+                                     Phase 2: sub-word CTC on "năng khiếu ơi"
+                                                               ▼
+                                  wake-word detector, scored inside continuous audio
 ```
 
 **[viespeaker-short-noisy-sv](https://github.com/MortyPham/viespeaker-short-noisy-sv)**: speaker verification on short, noisy Vietnamese speech<br>
